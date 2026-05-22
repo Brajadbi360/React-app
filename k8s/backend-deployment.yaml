@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-backend
+  namespace: demo-app
+  labels:
+    app: react-app-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app-backend
+  template:
+    metadata:
+      labels:
+        app: react-app-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/brajadbi360/react-app-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: backend-secret
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi

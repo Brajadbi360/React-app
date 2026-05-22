@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-app-backend
+  namespace: demo-app
+  labels:
+    app: react-app-backend
+spec:
+  selector:
+    app: react-app-backend
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP
