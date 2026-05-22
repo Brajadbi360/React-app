@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/brajadbi360/react-app-frontend:latest
+          image: ghcr.io/brajadbi360/react-app-frontend:sha-3238c0045faf59a801a0979c26f173d206c0dbd8
           imagePullPolicy: Always
           ports:
             - containerPort: 80
